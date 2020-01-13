@@ -1,0 +1,13 @@
+{
+  "author": "Rahul Chaudhary",
+  "name": "plugins-stock-adviser-api",
+  "description": "API for plugins-stock-adviser.",
+  "private": true,
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "~4.17.1"
+  },
+  "scripts": {
+    "start": "PORT=8080 node app.js"
+  }
+}
