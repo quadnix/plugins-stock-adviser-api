@@ -1,14 +1,15 @@
 var express = require('express');
+var Lead = require('../../../models/lead');
+
 var router = express.Router();
 
-var messages = [
-  'Hang tight while we build this awesome feature.',
-  'Hold your horses, this thing ain\'t built yet.',
-  'Look! Look! More awesome features are on their way.'
-]
+router.get('/', async (req, res, next) => {
+  const leads = await Lead.find();
+  const messages = leads.map((lead) => {
+    return lead.message;
+  });
 
-router.get('/', function(req, res, next) {
-  res.send(messages[Math.floor(Math.random() * messages.length)])
+  res.send(messages[Math.floor(Math.random() * messages.length)]);
 });
 
 module.exports = router;
