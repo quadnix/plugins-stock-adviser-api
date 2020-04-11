@@ -1,7 +1,7 @@
-var express = require('express');
-var Lead = require('../../../models/lead');
+const express = require('express');
+const Lead = require('../../../models/lead');
 
-var router = express.Router();
+const router = express.Router();
 
 router.get('/', async (req, res, next) => {
   const leads = await Lead.find();

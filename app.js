@@ -1,11 +1,11 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var Lead = require('./models/lead');
-var indexRouter = require('./routes/index');
-var versionRouter = require('./routes/api/version');
-var comingSoonLeadRouter = require('./routes/api/coming-soon/lead');
+const express = require('express');
+const mongoose = require('mongoose');
+const Lead = require('./models/lead');
+const indexRouter = require('./routes/index');
+const versionRouter = require('./routes/api/version');
+const comingSoonLeadRouter = require('./routes/api/coming-soon/lead');
 
-var app = express();
+const app = express();
 
 // Database connection.
 const dbHost = process.env.DATABASE_HOST || 'localhost'
