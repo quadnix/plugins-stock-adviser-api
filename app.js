@@ -11,12 +11,13 @@ const app = express();
 const dbHost = process.env.DATABASE_HOST || 'localhost'
 const dbPort = process.env.DATABASE_PORT || 27017
 const databaseUrl = `mongodb://${dbHost}:${dbPort}/stock-adviser`
-mongoose.connect(databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(databaseUrl, {useNewUrlParser: true, useUnifiedTopology: true});
 
 // Database events.
 const db = mongoose.connection;
 db.on('error', (error) => { // On error.
   console.log(error);
+  process.exit(1)
 });
 db.on('open', async () => { // On init.
   console.log('Server connected to database.');
@@ -31,10 +32,11 @@ db.on('open', async () => { // On init.
       "Look! Look! More awesome features are on their way."
     ];
     messages.forEach((message) => {
-      const lead = new Lead({ message });
+      const lead = new Lead({message});
       lead.save((error) => {
         if (error) {
           console.log('Error seeding database!', error);
+          process.exit(1)
         }
       });
     });
