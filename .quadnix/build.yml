@@ -4,3 +4,6 @@ phases:
   install:
     commands:
       - npm install
+
+depends_on:
+  - database
