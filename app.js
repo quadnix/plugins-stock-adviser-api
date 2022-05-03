@@ -12,8 +12,15 @@ const dbHost = process.env.DATABASE_HOST || 'localhost'
 const dbPort = process.env.DATABASE_PORT || 27017
 const databaseUrl = `mongodb://${dbHost}:${dbPort}/stock-adviser`
 
-mongoose.connect(databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true }, (error) => {
+const connectionOptions = {
+  serverSelectionTimeoutMS: 60000,
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}
+
+mongoose.connect(databaseUrl, connectionOptions, (error) => {
   if (error) {
+    console.log('Error initializing connection to database!')
     console.log(error)
     process.exit(1)
   }
@@ -22,8 +29,14 @@ mongoose.connect(databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true 
 const db = mongoose.connection
 
 db.on('error', (error) => { // On error.
+  console.log('Error connecting to database!')
   console.log(error)
   process.exit(1)
+})
+
+// MongoDB automatically reconnects when connection is lost.
+db.on('reconnect', () => {
+  console.log('Server reconnecting to database ...')
 })
 
 db.on('open', async () => { // On init.
